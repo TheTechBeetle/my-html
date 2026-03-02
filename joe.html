@@ -1,0 +1,47 @@
+<html>
+	<head>
+		<style>
+			/* Uses a unique ID */
+			#joe1 {
+				color: green;
+			}
+
+			/* Uses 'class' which can be applied to multiple components */
+			.special {
+				color: purple;
+			}
+
+		</style>
+		<script>
+			function clickOnMe() {
+				
+
+				const divTom = document.getElementById('tom');
+				const p = document.createElement('p');
+				p.innerHTML = 'Hi Tom';
+				const btn = document.createElement('button');
+				btn.textContent = 'Press Me';
+				btn.addEventListener('click', function() {
+					console.log('Tom Pressed me');
+					divTom.removeChild(p);
+				})
+				divTom.appendChild(p);
+				divTom.appendChild(btn);
+			}
+		</script>
+	</head>
+	<body>
+		<h1>Joe's Page</h1>
+		<p style="color: red;">this text is red</p>
+		<p id='joe1'>this text is green</p>
+		<p class='special'>This text is purple</p>
+		<p class='special'>This text is ALSO purple</p>
+
+		<button onClick="clickOnMe()">Say Hi</button>
+
+		<div id="tom">
+
+		</div>
+	</body>
+
+</html>

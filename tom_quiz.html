@@ -1,0 +1,184 @@
+<head>
+    <script>
+        var questions = ["5 x 5","3 x 6","8 x 3"]
+        var answers = [25,18,24]
+        var score = 0
+        function complete(){
+            document.body.innerHTML = ""
+            var para = document.createElement("h1")
+            para.innerHTML = ("You scored: "+score+" out of: "+questions.length)
+            document.body.appendChild(para)
+            var para = document.createElement("button")
+            para.innerHTML = "Retake Quiz"
+            para.addEventListener("click", function(){
+                question(1)
+            })
+            document.body.appendChild(para)
+            document.body.appendChild(document.createElement("br"))
+            var para = document.createElement("button")
+            para.innerHTML = "Edit Quiz"
+            para.addEventListener("click", function(){
+                EditQuiz()
+            })
+            document.body.appendChild(para)
+            score = 0
+        }
+        function correct(level){
+            score++
+            document.body.innerHTML = ""
+            var para = document.createElement("h1")
+            para.innerHTML = "Correct"
+            para.style = "color:green"
+            document.body.appendChild(para)
+            if(level < questions.length){
+                var para = document.createElement("button")
+                para.innerHTML = "Next Question"
+                para.addEventListener("click", function(){
+                    question(level + 1)
+                })
+                document.body.appendChild(para)
+            }
+            else{
+                var para = document.createElement("button")
+                para.innerHTML = "See my result"
+                para.addEventListener("click", function(){
+                    complete()
+                })
+                document.body.appendChild(para)
+            }
+        }
+        function incorrect(answer,level){
+            document.body.innerHTML = ""
+            var para = document.createElement("h1")
+            para.innerHTML = "Incorrect"
+            para.style = "color:red"
+            document.body.appendChild(para)
+            var para = document.createElement("h2")
+            para.innerHTML = ("The answer was: "+answer)
+            document.body.appendChild(para)
+            if(level < questions.length){
+                var para = document.createElement("button")
+                para.innerHTML = "Next Question"
+                para.addEventListener("click", function(){
+                    question(level + 1)
+                })
+                document.body.appendChild(para)
+            }
+            else{
+                var para = document.createElement("button")
+                para.innerHTML = "See my result"
+                para.addEventListener("click", function(){
+                    complete()
+                })
+                document.body.appendChild(para)
+            }
+        }
+        function write(type,txt){
+            var para = document.createElement(type)
+            para.innerHTML = txt
+            document.body.appendChild(para)
+        }
+        function check(guess,answer,level){
+            if(guess == answer) correct(level)
+            else incorrect(answer,level)
+        }
+        function question(level){
+            document.body.innerHTML = ("");
+            write("h1","Question "+level)
+            write("h2","what is "+questions[level - 1]+"?")
+            var para = document.createElement("input");
+            para.type = 'number';
+            para.id = "area"
+            para.placeholder = "answer"
+            document.body.appendChild(para)
+            document.body.appendChild(document.createElement("br"))
+            var para = document.createElement("button")
+            para.innerHTML = "check"
+            para.addEventListener("click", function(){
+                check(document.getElementById('area').value,answers[level - 1],level)
+            })
+            document.body.appendChild(para)
+            var para = document.createElement("button")
+            para.innerHTML = "skip"
+            para.addEventListener("click", function(){
+                check("",answers[level - 1],level)
+            })
+            document.body.appendChild(para)
+        }
+        function Editquestion(question){
+            document.body.innerHTML = ""
+            write("h1","Question "+question)
+            var para = document.createElement("button")
+            para.innerHTML = "Edit question"
+             para.addEventListener("click", function(){
+                questions[question] = prompt("new value")
+            })
+            document.body.appendChild(para)
+            document.body.appendChild(document.createElement("br"))
+            var para = document.createElement("button")
+            para.innerHTML = "Edit answer"
+             para.addEventListener("click", function(){
+                answers[question] = prompt("new value")
+            })
+            document.body.appendChild(para)
+            document.body.appendChild(document.createElement("br"))
+            var para = document.createElement("button")
+            para.innerHTML = "delete"
+            para.addEventListener("click", function(){
+                answers.splice(question,1)
+                questions.splice(question,1)
+                EditQuiz()
+            })
+            document.body.appendChild(para)
+            document.body.appendChild(document.createElement("br"))
+            var para = document.createElement("button")
+            para.innerHTML = "Back"
+             para.addEventListener("click", function(){
+                EditQuiz()
+            })
+            document.body.appendChild(para)
+        }
+        function EditQuiz(){
+            document.body.innerHTML = ""
+            var para = document.createElement("button")
+            para.innerHTML = "Back"
+             para.addEventListener("click", function(){
+                question(1)
+            })
+            document.body.appendChild(para)
+            document.body.appendChild(document.createElement("br"))
+            for (let i = 0; i < questions.length; i++) {
+                const button = document.createElement('button');
+                button.id = `button-${i}`; // Unique ID
+                button.textContent = "question "+i+": "+questions[i]+" : "+answers[i]
+                button.addEventListener('click', () => {
+                    Editquestion(`${i}`);
+                    });
+                document.body.appendChild(button);
+                document.body.appendChild(document.createElement("br"))
+            }
+            var para = document.createElement("button")
+            para.innerHTML = "New question"
+             para.addEventListener("click", function(){
+                questions[questions.length] = prompt("new question")
+                answers[answers.length] = prompt("new answer")
+                EditQuiz()
+            })
+            document.body.appendChild(para)
+            document.body.appendChild(document.createElement("br"))
+        }
+    </script>
+    <html>
+        <title>Tom's Quiz</title>
+    </html>
+</head>
+<body>
+    <html>
+        <h1>Tom's Quiz</h1>
+        <h2>Can You take the Quiz?</h2>
+        <button onclick="question(1)">Start Quiz</button>
+        <br>
+        <br>
+        ⚠️<button onclick="EditQuiz()">Edit Quiz</button>⚠️
+        </html>
+</body>

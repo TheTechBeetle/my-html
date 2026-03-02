@@ -1,0 +1,66 @@
+<html>
+
+<head>
+    <title>Tomsite.join</title>
+    <!--
+     Making it a module, and deferring it, ensures the Javascript is run after the page is loaded
+     This means that the elements with ID's will exist when you need them to.
+     But, this does also mean, you can't refer to functions here directly in the markup. Instead
+     of doing that ,you need to add event listeners.
+    -->
+    <script type="module" defer>
+        const fnf = document.getElementById("firstname").value
+        const lnf = document.getElementById("lastname").value
+        const adf = document.getElementById("address").value
+        const pcf = document.getElementById("postcode").value
+        // We have replaced this by using an 'anchor' tag to redirect
+        function showtac() {
+            window.location.replace('/tomsiteTAC.html')
+        }
+        function checkjoin() {
+            if (fnf && lnf && adf && pcf) {
+                alert("registred")
+            } else {
+                alert("Error")
+                console.log(fnf)
+                console.log(lnf)
+                console.log(adf)
+                console.log(pcf)
+            }
+        }
+        const btnJoin = document.getElementById('btnJoin');
+        btnJoin.addEventListener('click', function () {
+            checkjoin()
+        })
+    </script>
+</head>
+
+<body>
+    <div style="background-color: rgb(223, 223, 223)">
+        <h1>Join Tomsite</h1>
+        <h3>Name</h3>
+        <p>first name</p>
+        <textarea id="firstname" placeholder="scott" rows="1"></textarea>
+        <p>last name</p>
+        <textarea id="lastname" placeholder="tracy" rows="1"></textarea>
+        <br>
+        <h3>address</h3>
+        <p>address</p>
+        <textarea id="address" placeholder="tracy island" rows="1"></textarea>
+        <p>postcode</p>
+        <textarea id="postcode" placeholder="the sea?" rows="1"></textarea>
+        <br>
+        <br>
+        i agree to
+        <span onclick="showtac()" style="color: blue; cursor: pointer; text-decoration: underline;">
+            <a href="/tomsiteTAC.html" target="_blank">T&C</a>
+        </span>
+        <input type="checkbox">
+        <br>
+        <br>
+        <h3>Join</h3>
+        <button id="btnJoin">Join</button>
+    </div>
+</body>
+
+</html>
